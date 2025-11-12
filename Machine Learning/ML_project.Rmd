@@ -1,0 +1,375 @@
+---
+title: "Proiect ECD - Nuclear Cortex data on Mice"
+author: Florina Baston
+output:
+  html_document: default
+---
+
+# 0. intro - citire si curatare date
+```{r include = F}
+## Clear all objects from the memory:
+rm(list = ls())
+check_install = function(packages) {
+  not_installed = setdiff(packages, rownames(installed.packages()))
+  if(length(not_installed) > 0) {
+    write(paste("The libraries", not_installed, "are not installed, so they are being installed now.",
+                sep=" "), stdout())
+  }
+}
+# Install and load the required packages:
+packages = c("party","rpart", "caret","pROC","mlbench")
+check_install(packages)
+installed = lapply(packages, library, character.only = TRUE)
+
+
+main_dir='C:/Users/FB/Desktop/UVT/sem 2/ECD/proiect ECD'
+setwd(main_dir)
+dataSet_initial = read.csv("Data_Cortex_Nuclear.csv")
+
+nans_initial=vector()
+for (i in 1:dim(dataSet_initial)[2]){
+  nans_initial[i]=sum(is.na(dataSet_initial[,i]))}
+
+plot(nans_initial)
+dataSet_clean=dataSet_initial[,!nans_initial>20]
+
+for (i in 1:dim(dataSet_clean)[2]){
+if (class(dataSet_clean[,i])=="numeric")
+  dataSet_clean[is.na(dataSet_clean[,i]),i]=mean(dataSet_clean[!is.na(dataSet_clean[,i]),i])}
+
+nans_clean=vector()
+for (i in 1:dim(dataSet_clean)[2]){
+  nans_clean[i]=sum(is.na(dataSet_clean[,i]))}
+plot(nans_clean)
+
+#=matrix(0,ncol(dataSet_clean),2)
+#for (i in 2:ncol(dataSet_clean))
+#  ranges[i,]=range(dataSet_clean[,i])
+
+#plot(ranges[,1],main='limite inferioare')
+#plot(ranges[,2],main='limite superioare')
+
+
+dataSet <- dataSet_clean[,2:(length(dataSet_clean)-4)]
+dataClass <- dataSet_clean[,length(dataSet_clean)] 
+
+nr_prot=ncol(dataSet)
+
+summary(dataSet_clean)
+attach(dataSet_clean)
+
+table(Genotype)
+table(Treatment)
+table(Behavior)
+table(class)
+
+
+#partitionare in set antrenare (75%) si set testare (25%) 
+inTrain <- createDataPartition(dataClass, p = 0.75, list = FALSE) 
+trainingSet <- dataSet[inTrain,]
+testingSet <- dataSet[-inTrain,]
+trainingClass <- dataClass[inTrain]
+testingClass <- dataClass[-inTrain]
+
+#Error: At least one of the class levels is not a valid R variable name;
+library(stringr)
+dataClass=str_replace_all(dataClass,'-','')
+trainingClass=str_replace_all(trainingClass,'-','')
+testingClass=str_replace_all(testingClass,'-','')
+
+```
+
+#1. PCA
+```{r echo = F, message = F}
+
+covMatrix <- cov(dataSet)
+eigMatrix <- eigen(covMatrix)
+eigValues <- eigMatrix$values
+eigVectors <- eigMatrix$vectors
+eigVectors%*%t(eigVectors) # verificarea ortogonalitatii vectorilor proprii
+covMatrix - eigVectors%*%diag(eigValues)%*%t(eigVectors) # verificarea descompunerii matricii de covarianta
+dataMatrix <- data.matrix(dataSet) # transformare dataframe in matrice
+projdata <- dataMatrix%*%eigVectors # proiectia datelor initiale pe spatiul definit de vectorii proprii
+
+var=c() # cantitatea de varianta explicata 
+for (i in 1:length(dataSet)) 
+  var[i]=(sum(eigValues[1:i])/sum(eigValues))
+plot(var)
+
+library(FactoMineR)
+library(factoextra)
+res.pca <- PCA(dataSet,  graph = FALSE)
+get_eig(res.pca)
+fviz_pca_ind(res.pca,label = "none", habillage = factor(dataClass),addEllipses = TRUE)
+```
+
+# 2. arbori de decizie pe baza PCA
+```{r echo = F, message = F}
+gc()
+
+projdata_trim=data.frame(projdata[,1:10])
+modelRpart1 <- dataClass ~ projdata_trim$X1 + projdata_trim$X2 + projdata_trim$X3 +  
+  projdata_trim$X4 +projdata_trim$X5 +projdata_trim$X6 +projdata_trim$X7 +projdata_trim$X8 +
+  projdata_trim$X9 
+treeRpart <- rpart(modelRpart1, data = projdata_trim, control = rpart.control(minsplit = 2))
+attributes(treeRpart)
+print(treeRpart$cptable)
+print(treeRpart)
+# grafic arbore
+dev.new(width=5, height=4, unit="in")
+plot(treeRpart)
+text(treeRpart, cex=0.35)
+``` 
+
+#3. k Nearest Neighbour
+```{r echo = F, message = F}
+
+
+trainibootstrappingControl <- trainControl(number = 25) 
+knnFit <- train(trainingSet, trainingClass, method="knn", tuneLength = 3, trControl=trainibootstrappingControl) 
+
+k_optim=c()
+for (i in 1:15)
+{knnFiti <- train(trainingSet, trainingClass, method="knn", tuneLength = i, trControl=trainibootstrappingControl) 
+  k_optim[i]=knnFiti[["finalModel"]][["k"]]}
+plot(k_optim,main='tune lenghts')
+
+
+plot(knnFit)
+knnFit$finalModel
+
+# testare
+resTesting <- predict(knnFit, testingSet)
+CM1=confusionMatrix(data = resTesting, reference = factor(testingClass))
+
+# construire model folosind validare incrucisata
+CVcontrol <- trainControl(method="repeatedcv",repeats = 10)
+knnFit2 <- train(trainingSet, trainingClass, method="knn", tuneLength = 10, trControl=CVcontrol)
+knnFit2$finalModel
+plot(knnFit2)
+resTesting2 <- predict(knnFit2, testingSet)
+CM2=confusionMatrix(data = resTesting2, reference = factor(testingClass))
+
+CM1[["overall"]][["Accuracy"]]   
+CM2[["overall"]][["Accuracy"]]   
+
+# analizam influenta lui nr-ului de vecini asupra acuratetii  
+set.seed(1)
+library(class)
+accuracies=c()
+for (i in 1:20) {
+  rezkNN <- knn(trainingSet, testingSet, trainingClass, k = i, prob=TRUE)
+  accuracies[i]=confusionMatrix(data=rezkNN, reference=factor(testingClass))[["overall"]][["Accuracy"]]
+  }
+plot(accuracies) 
+
+
+# multiclass ROC
+knnPredict <- predict(knnFit, testingSet, type="prob")
+knnROC <- multiclass.roc(testingClass,knnPredict)  
+knnROC[["auc"]]
+
+
+```
+
+# 4. retele neuronale
+```{r echo = F, message = F}
+# cross validation with 5 folds
+cvControl <- trainControl(method = 'cv', number = 5, classProbs = TRUE, verboseIter = TRUE) 
+
+# Antrenare retea neuronala - se incearca diferite valori pentru numarul de unitati ascunse 1-4, altfel nu erau surpinse in grafic 
+# si pentru coeficientul de regularizare (0,0.1,0.5) = decay factor 
+
+#Error: At least one of the class levels is not a valid R variable name;
+library(stringr)
+trainingClass=str_replace_all(trainingClass,'-','')
+testingClass=str_replace_all(testingClass,'-','')
+
+nnFit <- train(trainingSet, trainingClass, method="nnet",  trControl=cvControl, preProcess=c("pca"), tuneGrid=expand.grid(size=c(1,2,3,4), decay=c(0,0.1,0.5)))
+nnFit$finalModel
+plot(nnFit)
+
+# testare
+resTestingNominal <- predict(nnFit, testingSet, type="raw")
+resTesting <- predict(nnFit, testingSet, type="prob")
+confusionMatrix(data = resTestingNominal, reference = factor(testingClass))
+nnROC <- multiclass.roc(testingClass,resTesting) 
+#plot(nnROC, type="S", print.thres=c(0.1,0.25,0.5,0.75,0.9))
+```
+
+## metode de grupare 
+
+# 5. K means 
+```{r echo = F, message = F}
+gc()
+
+#determinarea numarului optim de clustere
+# analiza cazurilor in care numarul de clustere variaza intre 2 si 20
+library(cluster)
+
+
+wss=c(); sc=c();
+for (i in 2:20) {
+  wss[i] <- sum(kmeans(dataSet,centers=i)$withinss)
+  ec_sc <- silhouette(kmeans(dataSet,centers=i)$cluster, dist(dataSet))
+  sc[i]= summary(ec_sc)$avg.width
+  rm(ec_sc)}
+
+par(mfrow=c(1,2)) 
+
+plot(2:20, wss[2:20], type="b", xlab="# of clusters",ylab="intravariance") 
+plot(2:20, sc[2:20], type="b", xlab="# of clusters",ylab="Silhouette Coefficient") 
+
+# analiza pe baza coef Silh
+
+# se aplica algoritmul de grupare pentru cazul numarului de clase stiut apriori
+resKmeans <- kmeans(dataSet,centers=length(unique(dataClass)))
+
+# comparare rezultat grupare Kmeans cu grupare reala
+plot(projdata, col = resKmeans$cluster) # kMeans
+plot(projdata, col =as.numeric(factor(dataClass))) #grupare reala
+
+
+# vizualizare clustere
+set.seed(1)
+km.res <- kmeans(scale(dataSet), length(unique(dataClass)), nstart = 25)
+library("factoextra")
+fviz_cluster(km.res, data = dataSet)
+
+```
+
+
+#6. Biclustering
+```{r echo = F, message = F}
+library("biclust")
+#genes on col, exp on rows
+
+
+# clusterizare set intreg date
+dataBiclust= t(data.matrix(dataSet))
+colnames(dataBiclust)=dataClass
+
+res_all<-biclust(dataBiclust, method=BCPlaid(), verbose=FALSE)
+res_all # no cluster found for all data
+
+set.seed(1) #set.seed(200)
+resBCXmotifs <- biclust(discretize(dataBiclust), method=BCXmotifs(), alpha=0.05, number=50)
+resBCXmotifs
+heatmapBC(x = dataBiclust, bicResult = resBCXmotifs) 
+
+
+#clusterizare grupe
+group1=t(data.matrix(dataSet[dataClass=='cCSm',])) 
+colnames(group1)=dataClass[dataClass=='cCSm']
+set.seed(1)
+resBCX_1 <- biclust(discretize(group1), method=BCXmotifs(), alpha=0.05, number=50)
+resBCX_1
+heatmapBC(x = group1, bicResult = resBCX_1) 
+
+par(mfrow=c(2,2))
+for (i in 1:4)
+drawHeatmap(group1,resBCX_1,i) # vizualizarea biclusterurilor individuale 
+
+par(mfrow=c(2,2))
+for (i in 1:4)
+parallelCoordinates(x=group1, bicResult=resBCX_1, number=i) # vizualizarea nivelului de expresie a proteinelor din clustere in raport cu nivelul expresiei celorlalte
+
+# observarea diferentelor de grupare in functie de tratament
+par(mfrow=c(1,2))
+group2=t(data.matrix(dataSet[dataClass=='cCSm'|dataClass=='tCSm'|dataClass=='cSCm'|dataClass=='tSCm',]))
+colnames(group2)=dataClass[dataClass=='cCSm'|dataClass=='tCSm'|dataClass=='cSCm'|dataClass=='tSCm']
+set.seed(1)
+resBCX_2 <- biclust(discretize(group2), method=BCXmotifs(), alpha=0.05, number=50)
+resBCX_2
+heatmapBC(x = group2, bicResult = resBCX_2) 
+
+
+group3=t(data.matrix(dataSet[dataClass=='cCSs'|dataClass=='tCSs'|dataClass=='cSCs'|dataClass=='tSCs',]))
+colnames(group3)=dataClass[dataClass=='cCSs'|dataClass=='tCSs'|dataClass=='cSCs'|dataClass=='tSCs']
+set.seed(1)
+resBCX_3 <- biclust(discretize(group3), method=BCXmotifs(), alpha=0.05, number=50)
+resBCX_3
+heatmapBC(x = group3, bicResult = resBCX_3) 
+```
+
+# 7. analiza ANOVA
+```{r echo = F, message = F}
+gc()
+
+# pentru prima proteina - DURK1A_N
+i=2
+boxplot(dataSet_clean[,i]~dataSet_clean$class,main=colnames(dataSet_clean)[i])
+
+a_g=aov(dataSet_clean[,i]~dataSet_clean$Genotype, data = dataSet_clean)
+a_t=aov(dataSet_clean[,i]~dataSet_clean$Treatment, data = dataSet_clean)
+a_b=aov(dataSet_clean[,i]~dataSet_clean$Behavior, data = dataSet_clean)
+a_gt=aov(dataSet_clean[,i]~dataSet_clean$Genotype*dataSet_clean$Treatment, data = dataSet_clean)
+a_gb=aov(dataSet_clean[,i]~dataSet_clean$Genotype*dataSet_clean$Behavior, data = dataSet_clean)
+a_tb=aov(dataSet_clean[,i]~dataSet_clean$Treatment*dataSet_clean$Behavior, data = dataSet_clean)
+#a_all=aov(dataSet_clean[,i]~dataSet_clean$Genotype*dataSet_clean$Treatment*dataSet_clean$Behavior, data = dataSet_clean)
+a_class=aov(dataSet_clean[,i]~dataSet_clean$class, data = dataSet_clean)
+
+#summary(a_g) summary(a_t) summary(a_b)
+
+library(AICcmodavg)
+model.set <- list(a_g, a_t, a_b,a_gt,a_gb,a_tb,a_class)
+model.names <- c("Genotype", "Treatment", "Behavior","Genotype+Treatment","Genotype+Behavior","Treatment+Behavior","class")
+aictab(model.set, modnames = model.names)
+
+summary(a_class)
+
+dataGeno <- dataSet_clean[,length(dataSet_clean)-3] 
+dataTreat <- dataSet_clean[,length(dataSet_clean)-2] 
+p_vals=c()
+comb_semnif=matrix(nrow=nr_prot,ncol=28)
+
+for (i in 1:nr_prot)
+{anova_matrix=pairwise.t.test(dataSet[,i], dataGeno, p.adjust.method="bonferroni")[["p.value"]]
+v=as.vector(anova_matrix[lower.tri(anova_matrix, diag = TRUE)])
+comb_semnif[i,]=v<0.05
+p_vals=c(p_vals,v)}
+
+rownames(comb_semnif)=colnames(dataSet)
+
+library(ggplot2)
+
+prag_bonferroni=-log10(0.05/nr_prot)
+df <- data.frame(proteine = (rep(1:(nr_prot), each = length(v))),p_vals )
+
+ggplot(df, aes(proteine, -log10(p_vals)))+
+  geom_point() +
+  geom_point(data = df) +  geom_hline(yintercept=prag_bonferroni)
+
+
+
+
+
+```
+
+
+###maybe
+# SVM 
+```{r echo = F, message = F}
+# cross validation with 10 folds
+cvControl <- trainControl(method = 'cv', number = 5, classProbs = TRUE, verboseIter = TRUE) 
+
+# svm liniar
+svmFit <- train(trainingSet, trainingClass, method = "svmLinear", tuneLength=c(5,10), trControl = cvControl, preProcess=c("pca"))
+svmFit$finalModel
+
+# testare - determinare rezultate ca probabilitati
+resTesting <- predict(svmFit, testingSet, type="prob")
+
+# testare - determinare rezultate ca variabile nominale
+resTestingNominalDirect <- predict(svmFit, testingSet, type="raw")
+
+# Analiza performantei:  matrice de confuzue, masuri de performanta, ROC
+svmCM <- confusionMatrix(data = resTestingNominalDirect, reference = factor(testingClass))
+svmROC <- multiclass.roc(testingClass,resTesting)  
+# rezultat - Multi-class area under the curve: 0.9028
+```
+
+# List of versions for all the R packages currently loaded
+```{r echo=FALSE}
+devtools::session_info()
+```
