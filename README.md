@@ -24,3 +24,17 @@ Steps:
 3. Variant annotation and comparative analysis in R: Developed R scripts leveraging Bioconductor packages (VariantAnnotation, GenomicRanges, BSgenome, TxDb, ReactomePA, topGO) to annotate variants, identify coding and intergenic changes, determine nonsynonymous SNPs, and perform functional enrichment analysis. Used bedr for intersection and Venn analyses to compare results across replicates and between pipelines.
 
 Gained hands-on experience applying supervised and unsupervised machine learning methods, dimensionality reduction, and statistical testing to biological datasets.
+
+
+**Biostatistics in R**
+
+Project Description: Analyzed clinical data from a study of 29 patients receiving Botox treatment for migraines, focusing on treatment efficacy and factors influencing migraine frequency, intensity, and presence of aura.
+
+Steps:
+- Data Cleaning & Preparation: Standardized variable formats, handled missing values and outliers.
+- Exploratory Analysis: Visualized distributions, compared groups by age, gender, and aura.
+- Statistical Testing: Applied Wilcoxon tests, ANOVA, and Levene’s test to assess differences in migraine outcomes.
+- Regression Modeling: Built linear and logistic regression models to quantify the impact of treatment and patient factors on migraine intensity and aura presence.
+- Prediction & Interpretation: Predicted outcomes for missing data points and evaluated model performance.
+
+Gained hands-on experience with R for data handling, visualization and statistical analysis, applied non-parametric tests and regression models to real clinical data and learned to interpret results in a biomedical context and communicate findings clearly.
