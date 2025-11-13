@@ -1,0 +1,236 @@
+[2022-01-08T13:35Z] System YAML configuration: /home/user/bcbio-nextgen/galaxy/bcbio_system.yaml.
+[2022-01-08T13:35Z] Locale set to C.UTF-8.
+[2022-01-08T13:35Z] Timing: organize samples
+[2022-01-08T13:35Z] multiprocessing: organize_samples
+[2022-01-08T13:35Z] Using input YAML configuration: /home/user/bcbio-runs/proiect/proiect/config/proiect.yaml
+[2022-01-08T13:35Z] Checking sample YAML configuration: /home/user/bcbio-runs/proiect/proiect/config/proiect.yaml
+[2022-01-08T13:35Z] Retreiving program versions from /home/user/bcbio-nextgen/manifest/python-packages.yaml.
+[2022-01-08T13:35Z] Retreiving program versions from /home/user/bcbio-nextgen/manifest/r-packages.yaml.
+[2022-01-08T13:35Z] Testing minimum versions of installed programs
+[2022-01-08T13:35Z] Timing: alignment preparation
+[2022-01-08T13:35Z] multiprocessing: prep_align_inputs
+[2022-01-08T13:38Z] Skipping trimming of Rep1-500-I.
+[2022-01-08T13:43Z] Skipping trimming of Rep2-500-I.
+[2022-01-08T13:47Z] Skipping trimming of Rep3-500-I.
+[2022-01-08T13:48Z] multiprocessing: disambiguate_split
+[2022-01-08T13:48Z] Timing: alignment
+[2022-01-08T13:48Z] multiprocessing: process_alignment
+[2022-01-08T15:51Z] Timing: callable regions
+[2022-01-08T15:51Z] multiprocessing: prep_samples
+[2022-01-08T15:51Z] multiprocessing: postprocess_alignment
+[2022-01-08T15:52Z] Rep1-500-I: Assigned coverage as 'genome' with 99.7% genome coverage and 0.0% offtarget coverage
+[2022-01-08T15:54Z] Prepare BQSR tables with GATK: Rep1-500-I 
+[2022-01-08T15:54Z] Skipping GATK BaseRecalibrator because no VCF file of known variants was found.
+[2022-01-08T15:55Z] Rep2-500-I: Assigned coverage as 'genome' with 99.6% genome coverage and 0.0% offtarget coverage
+[2022-01-08T15:56Z] Prepare BQSR tables with GATK: Rep2-500-I 
+[2022-01-08T15:56Z] Skipping GATK BaseRecalibrator because no VCF file of known variants was found.
+[2022-01-08T15:57Z] Rep3-500-I: Assigned coverage as 'genome' with 99.6% genome coverage and 0.0% offtarget coverage
+[2022-01-08T15:58Z] Prepare BQSR tables with GATK: Rep3-500-I 
+[2022-01-08T15:58Z] Skipping GATK BaseRecalibrator because no VCF file of known variants was found.
+[2022-01-08T15:58Z] multiprocessing: combine_sample_regions
+[2022-01-08T15:58Z] Identified 21 parallel analysis blocks
+Block sizes:
+  min: 13272
+  5%: 72211.0
+  25%: 230218.0
+  median: 469731.0
+  75%: 924431.0
+  95%: 1091291.0
+  99%: 1443804.6000000003
+  max: 1531933
+Between block sizes:
+  min: 296
+  5%: 413.3
+  25%: 882.5
+  median: 1284.0
+  75%: 2238.0
+  95%: 4033.199999999999
+  99%: 4392.239999999999
+  max: 4482
+
+[2022-01-08T15:58Z] multiprocessing: calculate_sv_bins
+[2022-01-08T15:58Z] multiprocessing: calculate_sv_coverage
+[2022-01-08T15:58Z] multiprocessing: normalize_sv_coverage
+[2022-01-08T15:58Z] Timing: hla typing
+[2022-01-08T15:58Z] Timing: alignment post-processing
+[2022-01-08T15:58Z] multiprocessing: piped_bamprep
+[2022-01-08T15:58Z] Timing: variant calling
+[2022-01-08T15:58Z] multiprocessing: variantcall_sample
+[2022-01-08T17:00Z] multiprocessing: concat_variant_files
+[2022-01-08T17:00Z] Timing: joint squaring off/backfilling
+[2022-01-08T17:00Z] Timing: variant post-processing
+[2022-01-08T17:00Z] multiprocessing: postprocess_variants
+[2022-01-08T17:00Z] Finalizing variant calls: Rep1-500-I, gatk-haplotype
+[2022-01-08T17:00Z] Calculating variation effects for Rep1-500-I, gatk-haplotype
+[2022-01-08T17:00Z] Annotate VCF file: Rep1-500-I, gatk-haplotype
+[2022-01-08T17:00Z] Filtering for Rep1-500-I, gatk-haplotype
+[2022-01-08T17:00Z] Removing variants with missing alts from /home/user/bcbio-runs/proiect/proiect/work/gatk-haplotype/500mg-effects.vcf.gz.
+[2022-01-08T17:00Z] Skipping VQSR, using cutoff-based filers: genome build does not have sufficient training data
+[2022-01-08T17:00Z] Skipping VQSR, using cutoff-based filers: genome build does not have sufficient training data
+[2022-01-08T17:00Z] Prioritization for Rep1-500-I, gatk-haplotype
+[2022-01-08T17:00Z] multiprocessing: split_variants_by_sample
+[2022-01-08T17:00Z] Timing: prepped BAM merging
+[2022-01-08T17:00Z] Timing: validation
+[2022-01-08T17:00Z] multiprocessing: compare_to_rm
+[2022-01-08T17:00Z] Timing: ensemble calling
+[2022-01-08T17:00Z] Timing: validation summary
+[2022-01-08T17:00Z] Timing: structural variation
+[2022-01-08T17:00Z] Timing: structural variation
+[2022-01-08T17:00Z] Timing: structural variation ensemble
+[2022-01-08T17:00Z] Timing: structural variation validation
+[2022-01-08T17:00Z] multiprocessing: validate_sv
+[2022-01-08T17:00Z] Timing: heterogeneity
+[2022-01-08T17:00Z] Timing: population database
+[2022-01-08T17:00Z] multiprocessing: prep_gemini_db
+[2022-01-08T17:00Z] Not running gemini, not configured in tools_on: Rep1-500-I
+[2022-01-08T17:00Z] Not running gemini, not configured in tools_on: Rep2-500-I
+[2022-01-08T17:00Z] Not running gemini, not configured in tools_on: Rep3-500-I
+[2022-01-08T17:00Z] Timing: create CNV PON
+[2022-01-08T17:00Z] Timing: peddy check
+[2022-01-08T17:00Z] multiprocessing: run_peddy
+[2022-01-08T17:00Z] Skipping peddy QC, sample is not human: ['Rep1-500-I', 'Rep2-500-I', 'Rep3-500-I']
+[2022-01-08T17:00Z] Timing: quality control
+[2022-01-08T17:00Z] multiprocessing: pipeline_summary
+[2022-01-08T17:00Z] QC: Rep1-500-I coverage
+[2022-01-08T17:01Z] QC: Rep1-500-I fastqc
+[2022-01-08T17:04Z] Produced HTML report /home/user/bcbio-runs/proiect/proiect/work/qc/Rep1-500-I/fastqc/fastqc_report.html
+[2022-01-08T17:04Z] QC: Rep1-500-I picard
+[2022-01-08T17:04Z] QC: Rep1-500-I qsignature
+[2022-01-08T17:04Z] QC: Rep1-500-I samtools
+[2022-01-08T17:04Z] QC: Rep1-500-I variants
+[2022-01-08T17:04Z] QC: Rep2-500-I coverage
+[2022-01-08T17:05Z] QC: Rep2-500-I fastqc
+[2022-01-08T17:09Z] Produced HTML report /home/user/bcbio-runs/proiect/proiect/work/qc/Rep2-500-I/fastqc/fastqc_report.html
+[2022-01-08T17:09Z] QC: Rep2-500-I picard
+[2022-01-08T17:09Z] QC: Rep2-500-I qsignature
+[2022-01-08T17:09Z] QC: Rep2-500-I samtools
+[2022-01-08T17:09Z] QC: Rep2-500-I variants
+[2022-01-08T17:09Z] QC: Rep3-500-I coverage
+[2022-01-08T17:09Z] QC: Rep3-500-I fastqc
+[2022-01-08T17:13Z] Produced HTML report /home/user/bcbio-runs/proiect/proiect/work/qc/Rep3-500-I/fastqc/fastqc_report.html
+[2022-01-08T17:13Z] QC: Rep3-500-I picard
+[2022-01-08T17:13Z] QC: Rep3-500-I qsignature
+[2022-01-08T17:13Z] QC: Rep3-500-I samtools
+[2022-01-08T17:13Z] QC: Rep3-500-I variants
+[2022-01-08T17:13Z] multiprocessing: qsignature_summary
+[2022-01-08T17:13Z] summarize metadata
+[2022-01-08T17:13Z] multiprocessing: multiqc_summary
+[2022-01-08T17:13Z] summarize target information
+[2022-01-08T17:13Z] summarize fastqc
+[2022-01-08T17:13Z] summarize metrics
+[2022-01-08T17:13Z] Timing: archive
+[2022-01-08T17:13Z] Timing: upload
+[2022-01-08T17:13Z] multiprocessing: upload_samples
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/picard/Rep1-500-I.oxog_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/picard/Rep1-500-I.pre_adapter_summary_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/picard/Rep1-500-I.bait_bias_detail_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/picard/Rep1-500-I.pre_adapter_detail_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/picard/Rep1-500-I.error_summary_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/coverage/Rep1-500-I-indexcov.roc
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/coverage/Rep1-500-I-indexcov.ped
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/coverage/Rep1-500-I-indexcov.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/fastqc/fastqc_report.html
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/fastqc/Per_sequence_quality_scores.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/fastqc/Sequence_Duplication_Levels.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/fastqc/Per_sequence_GC_content.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/fastqc/fastqc_data.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/fastqc/Per_base_sequence_quality.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/fastqc/Rep1-500-I.zip
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/fastqc/Per_base_N_content.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/fastqc/Sequence_Length_Distribution.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/fastqc/Per_base_sequence_content.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/samtools/Rep1-500-I-idxstats.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/samtools/Rep1-500-I.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/variants/Rep1-500-I_bcftools_stats.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/qc/variants/Rep1-500-I.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/Rep1-500-I-ready.bam
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/Rep1-500-I-ready.bam.bai
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/Rep1-500-I-callable.bed
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/Rep1-500-I-gatk-haplotype-effects-stats.html
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep1-500-I/Rep1-500-I-gatk-haplotype-effects-stats-csv.csv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/picard/Rep2-500-I.bait_bias_detail_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/picard/Rep2-500-I.oxog_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/picard/Rep2-500-I.error_summary_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/picard/Rep2-500-I.pre_adapter_detail_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/picard/Rep2-500-I.pre_adapter_summary_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/coverage/Rep2-500-I-indexcov.roc
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/coverage/Rep2-500-I-indexcov.ped
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/coverage/Rep2-500-I-indexcov.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/fastqc/fastqc_report.html
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/fastqc/Per_sequence_quality_scores.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/fastqc/Sequence_Duplication_Levels.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/fastqc/Rep2-500-I.zip
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/fastqc/Per_sequence_GC_content.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/fastqc/fastqc_data.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/fastqc/Per_base_sequence_quality.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/fastqc/Per_base_N_content.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/fastqc/Sequence_Length_Distribution.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/fastqc/Per_base_sequence_content.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/samtools/Rep2-500-I-idxstats.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/samtools/Rep2-500-I.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/variants/Rep2-500-I_bcftools_stats.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/qc/variants/Rep2-500-I.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/Rep2-500-I-ready.bam
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/Rep2-500-I-ready.bam.bai
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/Rep2-500-I-callable.bed
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/Rep2-500-I-gatk-haplotype-effects-stats.html
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep2-500-I/Rep2-500-I-gatk-haplotype-effects-stats-csv.csv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/picard/Rep3-500-I.pre_adapter_detail_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/picard/Rep3-500-I.pre_adapter_summary_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/picard/Rep3-500-I.bait_bias_detail_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/picard/Rep3-500-I.error_summary_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/picard/Rep3-500-I.oxog_metrics
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/coverage/Rep3-500-I-indexcov.roc
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/coverage/Rep3-500-I-indexcov.ped
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/coverage/Rep3-500-I-indexcov.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/fastqc/fastqc_report.html
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/fastqc/Per_sequence_quality_scores.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/fastqc/Sequence_Duplication_Levels.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/fastqc/Rep3-500-I.zip
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/fastqc/Per_sequence_GC_content.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/fastqc/fastqc_data.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/fastqc/Per_base_sequence_quality.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/fastqc/Per_base_N_content.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/fastqc/Sequence_Length_Distribution.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/fastqc/Per_base_sequence_content.tsv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/samtools/Rep3-500-I-idxstats.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/samtools/Rep3-500-I.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/variants/Rep3-500-I_bcftools_stats.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/qc/variants/Rep3-500-I.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/Rep3-500-I-ready.bam
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/Rep3-500-I-ready.bam.bai
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/Rep3-500-I-callable.bed
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/Rep3-500-I-gatk-haplotype-effects-stats.html
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/Rep3-500-I/Rep3-500-I-gatk-haplotype-effects-stats-csv.csv
+[2022-01-08T17:13Z] multiprocessing: upload_samples_project
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/programs.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/data_versions.csv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/bcbio-nextgen.log
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/bcbio-nextgen-commands.log
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/project-summary.yaml
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/metadata.csv
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_report.html
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc_data.json
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/seqbuster_mirs.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc_bcbio_metrics.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_config.yaml
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc_general_stats.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc_sources.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/seqbuster_isomirs.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc_bcftools_stats.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/report/metrics/target_info.yaml
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/report/metrics/Rep2-500-I_bcbio.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc_snpeff.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc_samtools_stats.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/report/metrics/Rep3-500-I_bcbio.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc_picard_OxoGMetrics.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc_samtools_idxstats.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/report/metrics/Rep1-500-I_bcbio.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc.log
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc_fastqc.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/multiqc_data/multiqc_data_final.json
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/multiqc/list_files_final.txt
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/500mg-gatk-haplotype-annotated.vcf.gz
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/500mg-gatk-haplotype-annotated.vcf.gz.tbi
+[2022-01-08T17:13Z] multiprocessing: upload_samples_project
+[2022-01-08T17:13Z] Storing in local filesystem: /home/user/bcbio-runs/proiect/proiect/final/2022-01-08_proiect/bcbio-nextgen.log
