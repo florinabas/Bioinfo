@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE math PUBLIC "-//W3C//DTD MathML 2.0//EN" "http://www.w3.org/Math/DTD/mathml2/mathml2.dtd">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mtable>
+ <mtr>
+  <mtd>
+   <mfrac>
+    <mrow>
+     <mo>d</mo>
+     <mfenced>
+      <mrow>
+       <mi>[X]</mi>
+       <mo>&CenterDot;</mo>
+       <msub><mi>V</mi><mi>Cell</mi></msub>
+      </mrow>
+     </mfenced>
+    </mrow>
+    <mrow>
+     <mo>d</mo><mi>t</mi>
+    </mrow>
+   </mfrac>
+  </mtd>
+  <mtd>
+   <mo>=</mo>
+  </mtd>
+  <mtd columnalign='left'>
+   <mrow>
+    <mo>+</mo>
+    <msub><mi>V</mi><mi>Cell</mi></msub>
+    <mo>&CenterDot;</mo>
+    <mfenced>
+<mfrac>
+<mrow>
+<mfrac>
+<mrow>
+<mn>10</mn>
+<mo>&CenterDot;</mo>
+<mi>[A]</mi>
+</mrow>
+<mn>0.1</mn>
+</mfrac>
+<mo>-</mo>
+<mfrac>
+<mrow>
+<mn>0.1</mn>
+<mo>&CenterDot;</mo>
+<mi>[X]</mi>
+</mrow>
+<mn>0.1</mn>
+</mfrac>
+</mrow>
+<mrow>
+<mfenced>
+<mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mfrac>
+<mi>[A]</mi>
+<mn>0.1</mn>
+</mfrac>
+</mrow>
+<mo>+</mo>
+<mfrac>
+<mi>[X]</mi>
+<mn>0.1</mn>
+</mfrac>
+</mrow>
+</mfenced>
+<mo>&CenterDot;</mo>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mfrac>
+<mi>[B]</mi>
+<mn>0.01</mn>
+</mfrac>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+    </mfenced>
+   </mrow>
+  </mtd>
+ </mtr>
+ <mtr>
+  <mtd>
+  </mtd>
+  <mtd>
+  </mtd>
+  <mtd columnalign='left'>
+   <mrow>
+    <mo>-</mo>
+    <msub><mi>V</mi><mi>Cell</mi></msub>
+    <mo>&CenterDot;</mo>
+    <mfenced>
+<mfrac>
+<mfrac>
+<mrow>
+<mn>2</mn>
+<mo>&CenterDot;</mo>
+<mi>[X]</mi>
+</mrow>
+<mn>0.1</mn>
+</mfrac>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mfrac>
+<mi>[X]</mi>
+<mn>0.1</mn>
+</mfrac>
+</mrow>
+</mfenced>
+<mo>&CenterDot;</mo>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msup>
+<mfenced>
+<mfrac>
+<mi>[C]</mi>
+<mn>0.1</mn>
+</mfrac>
+</mfenced>
+<mrow>
+<mn>2</mn>
+</mrow>
+</msup>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+    </mfenced>
+   </mrow>
+  </mtd>
+ </mtr>
+ <mtr>
+  <mtd>
+  </mtd>
+  <mtd>
+  </mtd>
+  <mtd columnalign='left'>
+   <mrow>
+    <mo>-</mo>
+    <msub><mi>V</mi><mi>Cell</mi></msub>
+    <mo>&CenterDot;</mo>
+    <mfenced>
+<mfrac>
+<mrow>
+<mn>2</mn>
+<mo>&CenterDot;</mo>
+<mi>[X]</mi>
+</mrow>
+<mrow>
+<mn>0.1</mn>
+<mo>+</mo>
+<mi>[X]</mi>
+</mrow>
+</mfrac>
+    </mfenced>
+   </mrow>
+  </mtd>
+ </mtr>
+</mtable>
+</math>
